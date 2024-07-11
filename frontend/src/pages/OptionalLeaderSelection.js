@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const OptionalLeaderSelection = () => {
   const navigate = useNavigate();
-  const { state, constituency } = useLocation().state;
+  const location = useLocation();
+  const { state, constituency } = location.state || {};
+
+  if (!state || !constituency) {
+    return <div>Error: Missing state or constituency data</div>;
+  }
 
   const handleSelectLeader = (leader) => {
     // Call API to register optional leader selection
     // Example: axios.post('/api/select-leader', { state, constituency, leader });
-    navigate('/results', { state, constituency });
+    navigate('/results', { state: { state, constituency } });
   };
 
   return (

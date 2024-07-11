@@ -1,15 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const LeaderSelection = () => {
   const navigate = useNavigate();
   const { state, constituency } = useLocation().state;
-  const [r2r, setR2R] = useState(false);
 
   const handleVote = (voteType) => {
     // Call API to register vote
     // Example: axios.post('/api/vote', { state, constituency, voteType });
-    setR2R(voteType === 'r2r');
     navigate('/optional-leader-selection', { state, constituency });
   };
 

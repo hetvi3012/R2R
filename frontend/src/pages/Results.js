@@ -4,15 +4,22 @@ import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 
 const Results = () => {
-  const { state, constituency } = useLocation().state;
+  const location = useLocation();
+  const { state, constituency } = location.state || {};
   const [data, setData] = useState({ r2r: 0, satisfied: 0, leaders: [] });
 
   useEffect(() => {
-    // Fetch vote data from the server
-    axios.get(`/api/results?state=${state}&constituency=${constituency}`).then((response) => {
-      setData(response.data);
-    });
+    if (state && constituency) {
+      // Fetch vote data from the server
+      axios.get(`/api/results?state=${state}&constituency=${constituency}`).then((response) => {
+        setData(response.data);
+      });
+    }
   }, [state, constituency]);
+
+  if (!state || !constituency) {
+    return <div>Error: Missing state or constituency data</div>;
+  }
 
   const pieData = {
     labels: ['Right to Recall', 'Satisfied'],
