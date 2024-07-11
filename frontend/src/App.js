@@ -1,16 +1,21 @@
 import React from 'react';
-import Header from './components/Header.';
-import './index.css'; // Ensure you import your Tailwind CSS styles
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import LeaderSelection from './pages/LeaderSelection';
+import OptionalLeaderSelection from './pages/OptionalLeaderSelection';
+import Results from './pages/Results';
 
-const App = () => {
+function App() {
   return (
-    <div className="App">
-      <Header />
-      <main className="p-4">
-        <p>Welcome to the Right to Recall application.</p>
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/leader-selection" element={<LeaderSelection />} />
+        <Route path="/optional-leader-selection" element={<OptionalLeaderSelection />} />
+        <Route path="/results" element={<Results />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;
